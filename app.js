@@ -1,9 +1,11 @@
+require("dotenv-extended").load();
 import createError from "http-errors";
 import express from "express";
 import path from "path";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
-require("dotenv-extended").load();
+import db from "./db/models/index";
+const cors = require("cors");
 
 import indexRouter from "./routes/index";
 import usersRouter from "./routes/users";
@@ -19,6 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
